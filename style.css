@@ -79,3 +79,18 @@ img#result {
 .button-row button {
   margin-bottom: 0; /* Remove bottom margin for horizontal layout */
 }
+
+.footer-container {
+  background: whitesmoke;
+  font-family: poppins, sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 16px 0;
+  margin: 40px auto 0 auto;
+  max-width: 400px;
+  color: #6d6d6d;
+  text-align: center;
+  margin-bottom: 20px;
+}
