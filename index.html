@@ -67,7 +67,7 @@
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch('http://127.0.0.1:8000/sketch', {
+      const response = await fetch('https://imagetosketch.onrender.com/sketch', {
         method: 'POST',
         body: formData
       });
