@@ -1,0 +1,81 @@
+body {
+  background: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin: 18px 0 10px 0;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+}
+
+.container {
+  max-width: 440px;
+  margin: 24px auto 0 auto;
+  padding: 16px 12px 24px 12px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="file"], button {
+  font-size: 1em;
+  padding: 6px 12px;
+  /* margin-bottom: 4px; */
+}
+
+button {
+  background: #0078d4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover {
+  background: #005fa3;
+}
+
+canvas {
+  display: block;
+  margin: 16px auto 0 auto;
+  border: 1px solid #888;
+  border-radius: 8px;
+  background: #fff;
+  max-width: 100%;
+  max-height: 60vw;   /* Responsive: fits landscape images on desktop/mobile */
+  height: auto !important;
+  width: auto !important;
+  box-sizing: border-box;
+}
+
+img#result {
+  display: block;
+  margin: 16px auto 0 auto;
+  border: 1px solid #888;
+  border-radius: 8px;
+  background: #fff;
+  max-width: 100%;
+  /* Remove height: auto to avoid aspect ratio issues */
+  box-sizing: border-box;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.button-row button {
+  margin-bottom: 0; /* Remove bottom margin for horizontal layout */
+}

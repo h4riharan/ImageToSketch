@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sketch Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Upload Image to Sketch</h1>
+    <input type="file" id="fileInput">
+    <div class="button-row">
+      <button onclick="upload()">Generate Sketch</button>
+      <button id="downloadBtn" style="display:none;">Download Sketch</button>
+    </div>
+    <!-- The canvas will be injected here by p5.js -->
+    <img id="result" style="display: none; max-width: 100%;">
+  </div>
+  <script>
+    let sketchImg;
+    let y = 0;
+    let drawing = false;
+
+    function setup() {
+      let canvas = createCanvas(400, 400);
+      canvas.parent(document.querySelector('.container'));
+      background(255);
+      noLoop();
+    }
+
+    function draw() {
+      if (!drawing || !sketchImg) return;
+      for (let i = 0; i < 2 && y < sketchImg.height; i++) {
+        for (let x = 0; x < sketchImg.width; x++) {
+          let c = sketchImg.get(x, y);
+          stroke(c);
+          strokeWeight(1);
+          point(x, y);
+        }
+        y++;
+      }
+      if (y >= sketchImg.height) {
+        noLoop();
+        document.getElementById('downloadBtn').style.display = "inline-block";
+      }
+    }
+
+    function startSketchAnimation(imgSrc) {
+      loadImage(imgSrc, (img) => {
+        sketchImg = img;
+        sketchImg.loadPixels();
+        resizeCanvas(sketchImg.width, sketchImg.height);
+        background(255);
+        y = 0;
+        drawing = true;
+        document.getElementById('downloadBtn').style.display = "none";
+        loop();
+      }, () => {
+        console.error("Failed to load image");
+      });
+    }
+
+    async function upload() {
+      const file = document.getElementById('fileInput').files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch('http://127.0.0.1:8000/sketch', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      const sketchSrc = "data:image/png;base64," + data.sketch;
+
+      document.getElementById('result').src = sketchSrc;
+      document.getElementById('result').style.display = "none";
+
+      startSketchAnimation(sketchSrc);
+    }
+
+    // Download functionality
+    document.getElementById('downloadBtn').onclick = function() {
+      saveCanvas('sketch', 'png');
+    };
+  </script>
+</body>
+</html>
